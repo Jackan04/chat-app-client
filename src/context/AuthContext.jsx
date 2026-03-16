@@ -15,7 +15,7 @@ function AuthProvider({ children }) {
   const logout = () => {
     localStorage.removeItem("token");
     setToken(null);
-    navigate("/");
+    navigate("/login");
   };
 
   return (
