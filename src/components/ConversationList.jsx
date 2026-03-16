@@ -41,14 +41,17 @@ export default function ConversationList() {
   }
 
   return (
-    <ul>
-      {conversations.map((conversation) => (
-        <li key={conversation.id}>
-          <Link to={`/conversations/${conversation.id}`}>
-            {getRecipient(conversation.participants)}
-          </Link>
-        </li>
-      ))}
-    </ul>
+    <>
+      <h2>Conversations</h2>
+      <ul>
+        {conversations.map((conversation) => (
+          <li key={conversation.id}>
+            <Link to={`/conversations/${conversation.id}`}>
+              {getRecipient(conversation.participants)}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </>
   );
 }
