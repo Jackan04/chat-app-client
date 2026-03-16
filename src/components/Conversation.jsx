@@ -8,8 +8,7 @@ const conversationService = new ConversationService();
 
 export default function Conversation() {
   const [recipient, setRecipient] = useState("");
-  const [sentMessages, setSentMessages] = useState([]);
-  const [recivedMessages, setRecivedMessages] = useState([]);
+  const [messages, setMessages] = useState([]);
   const [error, setError] = useState("");
   const { id } = useParams();
   const { token, currentUser } = useAuth();
@@ -24,16 +23,7 @@ export default function Conversation() {
           id,
         );
         console.log(conversation);
-        setSentMessages(
-          conversation.messages.filter(
-            (message) => message.senderId === currentUser.id,
-          ),
-        );
-        setRecivedMessages(
-          conversation.messages.filter(
-            (message) => message.senderId !== currentUser.id,
-          ),
-        );
+        setMessages(conversation.messages);
         setRecipient(getRecipient(conversation.participants, currentUser));
       } catch (error) {
         setError(error.message);
@@ -51,20 +41,14 @@ export default function Conversation() {
     <>
       <h2>Conversation with {recipient}</h2>
       <div>
-        <p>Recived messages</p>
         <ul>
-          {recivedMessages.map((message) => (
-            <li key={message.id}>
-              {recipient} says {message.content}
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div>
-        <p>Sent messages</p>
-        <ul>
-          {sentMessages.map((message) => (
-            <li key={message.id}>You said {message.content}</li>
+          {messages.map((message) => (
+            <div key={message.id}>
+              <small>
+                {message.senderId === currentUser.id ? "You" : recipient}
+              </small>
+              <p>{message.content}</p>
+            </div>
           ))}
         </ul>
       </div>
