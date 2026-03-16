@@ -75,7 +75,6 @@ export default function Conversation() {
             type="text"
             placeholder="Enter a message"
             id="message"
-            name="message"
             value={message}
             onChange={(event) => setMessage(event.target.value)}
           />

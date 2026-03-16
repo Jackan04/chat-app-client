@@ -44,7 +44,6 @@ export default function Register() {
           <input
             type="text"
             id="username"
-            name="username"
             placeholder="Enter your username"
             value={username}
             onChange={(event) => setUsername(event.target.value)}
@@ -55,7 +54,6 @@ export default function Register() {
           <input
             type="password"
             id="password"
-            name="password"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
@@ -66,7 +64,6 @@ export default function Register() {
           <input
             type="password"
             id="passwordConfirmation"
-            name="passwordConfirmation"
             value={passwordConfirmation}
             onChange={(event) => setPasswordConfirmation(event.target.value)}
           />
