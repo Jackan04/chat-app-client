@@ -72,6 +72,7 @@ export default function NewConversation() {
               <UserDialog
                 user={user}
                 isOpen={isOpen === user.id}
+                currentUser={currentUser}
                 handleClose={() => setIsOpen(null)}
                 handleNewConversation={handleNewConversation}
               />
@@ -83,7 +84,13 @@ export default function NewConversation() {
   );
 }
 
-function UserDialog({ user, isOpen, handleClose, handleNewConversation }) {
+function UserDialog({
+  user,
+  isOpen,
+  currentUser,
+  handleClose,
+  handleNewConversation,
+}) {
   return (
     <dialog open={isOpen}>
       <header>
@@ -92,7 +99,10 @@ function UserDialog({ user, isOpen, handleClose, handleNewConversation }) {
       <main>
         <p>{user.online ? "Online" : "Offline"}</p>
         <p>Bio: {user.bio}</p>
-        <button onClick={() => handleNewConversation(user)}>
+        <button
+          disabled={user.id === currentUser.id}
+          onClick={() => handleNewConversation(user)}
+        >
           New Conversation
         </button>
       </main>
