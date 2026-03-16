@@ -3,6 +3,23 @@ class AuthService {
     this.baseUrl = "/api/auth";
   }
 
+  async getCurrentUser(token) {
+    const response = await fetch(`${this.baseUrl}/me`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw Error(data.message);
+    }
+
+    return data;
+  }
+
   async register(username, password, passwordConfirmation) {
     const response = await fetch(`${this.baseUrl}/register`, {
       method: "POST",
