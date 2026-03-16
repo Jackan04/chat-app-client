@@ -1,6 +1,6 @@
 class AuthService {
   constructor() {
-    this.baseUrl = "http://localhost:3000/api/auth";
+    this.baseUrl = "/api/auth";
   }
 
   async register(username, password, passwordConfirmation) {
@@ -12,7 +12,13 @@ class AuthService {
       body: JSON.stringify({ username, password, passwordConfirmation }),
     });
 
-    return response.json();
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw Error(data);
+    }
+
+    return data.token;
   }
 }
 
