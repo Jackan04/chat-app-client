@@ -1,12 +1,14 @@
 import { Route, Routes } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Register from "./components/auth/Register";
+import Login from "./components/auth/Login";
 
 function App() {
   return (
     <div className="container">
       <Routes>
-        <Route path="/login" element={<h2>Login</h2>} />
-        <Route path="/register" element={<h2>Register</h2>} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
 
         <Route element={<ProtectedRoute />}>
           <Route path="/conversations" element={<h2>Conversations</h2>} />

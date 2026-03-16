@@ -1,6 +1,5 @@
-import { createContext, useContext, useState } from "react";
-
-const AuthContext = createContext(null);
+import { useState } from "react";
+import { AuthContext } from "./auth-context.js";
 
 function AuthProvider({ children }) {
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -24,7 +23,4 @@ function AuthProvider({ children }) {
   );
 }
 
-const useAuth = () => useContext(AuthContext);
-
-// eslint-disable-next-line react-refresh/only-export-components
-export { AuthProvider, useAuth };
+export { AuthProvider };
