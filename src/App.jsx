@@ -4,6 +4,7 @@ import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import Nav from "./components/Nav";
 import ConversationList from "./components/ConversationList";
+import Conversation from "./components/Conversation";
 
 function AppLayout() {
   return (
@@ -25,7 +26,7 @@ function App() {
 
         <Route element={<ProtectedRoute />}>
           <Route index element={<ConversationList />} />
-          <Route path="/conversations/:id" element={<h2>Conversation</h2>} />
+          <Route path="/conversations/:id" element={<Conversation />} />
           <Route
             path="/conversations/new"
             element={<h2>New Conversation</h2>}
