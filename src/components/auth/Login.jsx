@@ -16,7 +16,6 @@ export default function Login() {
     setValidationErrors([]);
     try {
       const token = await authService.login(username, password);
-
       login(token);
     } catch (error) {
       if (error.validationErrors && error.validationErrors.length > 0) {
