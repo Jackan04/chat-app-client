@@ -2,7 +2,7 @@ import { createContext, useContext, useState } from "react";
 
 const AuthContext = createContext(null);
 
-const AuthProvider = ({ children }) => {
+function AuthProvider({ children }) {
   const [token, setToken] = useState(localStorage.getItem("token"));
 
   const login = (token) => {
@@ -22,7 +22,7 @@ const AuthProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
-};
+}
 
 const useAuth = () => useContext(AuthContext);
 
