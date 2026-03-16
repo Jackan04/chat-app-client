@@ -2,18 +2,21 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ConversationService from "../api/conversationService";
 import { useAuth } from "../context/useAuth";
+import { getRecipient } from "../utils/helpers";
 
 const conversationService = new ConversationService();
 
 export default function Conversation() {
-  const [conversation, setConversation] = useState("");
-  const [messages, setMessages] = useState([]);
-  const [participants, setParticipants] = useState([]);
+  const [recipient, setRecipient] = useState("");
+  const [sentMessages, setSentMessages] = useState([]);
+  const [recivedMessages, setRecivedMessages] = useState([]);
   const [error, setError] = useState("");
   const { id } = useParams();
-  const { token } = useAuth();
+  const { token, currentUser } = useAuth();
 
   useEffect(() => {
+    if (!currentUser) return;
+
     async function load() {
       try {
         const conversation = await conversationService.getConversationById(
@@ -21,17 +24,24 @@ export default function Conversation() {
           id,
         );
         console.log(conversation);
-
-        setConversation(conversation);
-        setParticipants(conversation.participants);
-        setMessages(conversation.messages);
+        setSentMessages(
+          conversation.messages.filter(
+            (message) => message.senderId === currentUser.id,
+          ),
+        );
+        setRecivedMessages(
+          conversation.messages.filter(
+            (message) => message.senderId !== currentUser.id,
+          ),
+        );
+        setRecipient(getRecipient(conversation.participants, currentUser));
       } catch (error) {
-        setError(error);
+        setError(error.message);
       }
     }
 
     load();
-  }, [id, token]);
+  }, [currentUser, id, token]);
 
   if (error) {
     return <p>Error: {error}</p>;
@@ -39,22 +49,22 @@ export default function Conversation() {
 
   return (
     <>
-      <h2>Conversation</h2>
+      <h2>Conversation with {recipient}</h2>
       <div>
-        <p>Participants</p>
+        <p>Recived messages</p>
         <ul>
-          {participants.map((participant) => (
-            <li key={participant.id}>{participant.username}</li>
+          {recivedMessages.map((message) => (
+            <li key={message.id}>
+              {recipient} says {message.content}
+            </li>
           ))}
         </ul>
       </div>
       <div>
-        <p>Messages</p>
+        <p>Sent messages</p>
         <ul>
-          {messages.map((message) => (
-            <li key={message.id}>
-              Sender ID: {message.senderId} || Message: {message.content}
-            </li>
+          {sentMessages.map((message) => (
+            <li key={message.id}>You said {message.content}</li>
           ))}
         </ul>
       </div>
