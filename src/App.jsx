@@ -5,6 +5,7 @@ import Login from "./components/auth/Login";
 import Nav from "./components/Nav";
 import ConversationList from "./components/ConversationList";
 import Conversation from "./components/Conversation";
+import NewConversation from "./components/NewConversation";
 
 function AppLayout() {
   return (
@@ -28,10 +29,7 @@ function App() {
           <Route index element={<ConversationList />} />
           <Route path="/conversations/:id" element={<Conversation />} />
           <Route path="/profile" element={<h2>Profile</h2>} />
-          <Route
-            path="/conversations/new"
-            element={<h2>New Conversation</h2>}
-          />
+          <Route path="/conversations/new" element={<NewConversation />} />
         </Route>
       </Route>
     </Routes>
