@@ -13,6 +13,9 @@ export default function Nav() {
               <NavLink to="/">Conversations</NavLink>
             </li>
             <li>
+              <NavLink to="/conversations/new">New Conversation</NavLink>
+            </li>
+            <li>
               <NavLink to="/profile">Profile</NavLink>
             </li>
             <li>
