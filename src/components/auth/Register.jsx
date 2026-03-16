@@ -32,10 +32,12 @@ export default function Register() {
     <div>
       <h2>Register</h2>
       <form onSubmit={handleSubmit}>
-        {validationErrors.length > 0 &&
-          validationErrors.map((error, index) => (
-            <p key={index}>{error.msg}</p>
-          ))}
+        <ul>
+          {validationErrors.length > 0 &&
+            validationErrors.map((error, index) => (
+              <li key={index}>{error.msg}</li>
+            ))}
+        </ul>
 
         <label htmlFor="username">
           Username
