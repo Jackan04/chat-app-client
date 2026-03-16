@@ -36,6 +36,25 @@ class ConversationService {
 
     return data;
   }
+
+  async sendMessage(token, conversationId, content) {
+    const response = await fetch(`${this.baseUrl}/${conversationId}/messages`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ content }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message);
+    }
+
+    return data;
+  }
 }
 
 export default ConversationService;
