@@ -17,7 +17,7 @@ class UserService {
       throw Error(data.message);
     }
 
-    return response;
+    return data;
   }
 }
 
