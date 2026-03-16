@@ -9,6 +9,7 @@ const conversationService = new ConversationService();
 export default function Conversation() {
   const [recipient, setRecipient] = useState("");
   const [messages, setMessages] = useState([]);
+  const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const { id } = useParams();
   const { token, currentUser } = useAuth();
@@ -33,6 +34,23 @@ export default function Conversation() {
     load();
   }, [currentUser, id, token]);
 
+  async function handleSubmit(event) {
+    event.preventDefault();
+    if (!message) return;
+    try {
+      const newMessage = await conversationService.sendMessage(
+        token,
+        id,
+        message,
+      );
+      console.log(newMessage);
+
+      setMessages((prevMessages) => [...prevMessages, newMessage]);
+    } catch (error) {
+      setError(error.message);
+    }
+  }
+
   if (error) {
     return <p>Error: {error}</p>;
   }
@@ -52,6 +70,17 @@ export default function Conversation() {
             </div>
           ))}
         </ul>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Enter a message"
+            id="message"
+            name="message"
+            value={message}
+            onChange={(event) => setMessage(event.target.value)}
+          />
+          <button type="submit">Send</button>
+        </form>
       </div>
     </>
   );
