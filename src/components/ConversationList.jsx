@@ -1,6 +1,7 @@
 import ConversationService from "../api/conversationService";
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/useAuth";
+import { Link } from "react-router-dom";
 
 const conversationService = new ConversationService();
 
@@ -33,7 +34,9 @@ export default function ConversationList() {
   return (
     <ul>
       {conversations.map((conversation) => (
-        <li>Conversation ID: {conversation.id}</li>
+        <li>
+          <Link to={`/conversations/${conversation.id}`}>Conversation ID: {conversation.id}</Link>
+        </li>
       ))}
     </ul>
   );
