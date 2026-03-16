@@ -10,6 +10,7 @@ const conversationService = new ConversationService();
 export default function NewConversation() {
   const { token, currentUser } = useAuth();
   const [searchQuery, setSearchQuery] = useState("");
+  const [hasSearched, setHasSearched] = useState(false);
   const [users, setUsers] = useState([]);
   const [error, setError] = useState("");
   const [isOpen, setIsOpen] = useState(null);
@@ -17,11 +18,11 @@ export default function NewConversation() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-
+    if (!searchQuery) return;
+    setHasSearched(true);
     try {
       const result = await userService.getUsersByUsername(token, searchQuery);
       console.log(result);
-
       setUsers(result);
     } catch (error) {
       setError(error.message);
@@ -30,7 +31,7 @@ export default function NewConversation() {
 
   async function handleNewConversation(recipient) {
     if (!currentUser) return;
-    
+
     try {
       const participants = [currentUser, recipient];
       const result = await conversationService.createConversation(
@@ -62,7 +63,9 @@ export default function NewConversation() {
         </form>
       </header>
       <ul>
-        {users.length > 0 &&
+        {hasSearched && users.length === 0 ? (
+          <p>No users found</p>
+        ) : (
           users.map((user) => (
             <div key={user.id}>
               <li onClick={() => setIsOpen(user.id)}>{user.username}</li>
@@ -73,7 +76,8 @@ export default function NewConversation() {
                 handleNewConversation={handleNewConversation}
               />
             </div>
-          ))}
+          ))
+        )}
       </ul>
     </>
   );
