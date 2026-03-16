@@ -15,7 +15,9 @@ class AuthService {
     const data = await response.json();
 
     if (!response.ok) {
-      throw Error(data);
+      const error = new Error(data.message);
+      error.validationErrors = data.validationErrors;
+      throw error;
     }
 
     return data.token;
