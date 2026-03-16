@@ -2,6 +2,7 @@ import ConversationService from "../api/conversationService";
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/useAuth";
 import { Link } from "react-router-dom";
+import { getRecipient } from "../utils/helpers";
 
 const conversationService = new ConversationService();
 
@@ -24,14 +25,6 @@ export default function ConversationList() {
     load();
   }, [token]);
 
-  function getRecipient(participants) {
-    const recipient = participants.find(
-      (participant) => participant.id !== currentUser.id,
-    );
-
-    return recipient.username;
-  }
-
   if (conversations.length === 0) {
     return <p>No conversations to display</p>;
   }
@@ -47,7 +40,7 @@ export default function ConversationList() {
         {conversations.map((conversation) => (
           <li key={conversation.id}>
             <Link to={`/conversations/${conversation.id}`}>
-              {getRecipient(conversation.participants)}
+              {getRecipient(conversation.participants, currentUser)}
             </Link>
           </li>
         ))}
