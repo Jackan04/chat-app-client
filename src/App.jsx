@@ -27,6 +27,7 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route index element={<ConversationList />} />
           <Route path="/conversations/:id" element={<Conversation />} />
+          <Route path="/profile" element={<h2>Profile</h2>} />
           <Route
             path="/conversations/new"
             element={<h2>New Conversation</h2>}
