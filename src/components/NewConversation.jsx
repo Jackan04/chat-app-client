@@ -1,15 +1,19 @@
 import { useState } from "react";
 import UserService from "../api/userService";
+import ConversationService from "../api/conversationService";
 import { useAuth } from "../context/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const userService = new UserService();
+const conversationService = new ConversationService();
 
 export default function NewConversation() {
-  const { token } = useAuth();
+  const { token, currentUser } = useAuth();
   const [searchQuery, setSearchQuery] = useState("");
   const [users, setUsers] = useState([]);
   const [error, setError] = useState("");
   const [isOpen, setIsOpen] = useState(null);
+  const navigate = useNavigate();
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -19,6 +23,21 @@ export default function NewConversation() {
       console.log(result);
 
       setUsers(result);
+    } catch (error) {
+      setError(error.message);
+    }
+  }
+
+  async function handleNewConversation(recipient) {
+    if (!currentUser) return;
+    
+    try {
+      const participants = [currentUser, recipient];
+      const result = await conversationService.createConversation(
+        token,
+        participants,
+      );
+      navigate(`/conversations/${result.id}`);
     } catch (error) {
       setError(error.message);
     }
@@ -49,9 +68,9 @@ export default function NewConversation() {
               <li onClick={() => setIsOpen(user.id)}>{user.username}</li>
               <UserDialog
                 user={user}
-                isOpen={isOpen}
+                isOpen={isOpen === user.id}
                 handleClose={() => setIsOpen(null)}
-                handleNewConversation={""}
+                handleNewConversation={handleNewConversation}
               />
             </div>
           ))}
@@ -69,7 +88,9 @@ function UserDialog({ user, isOpen, handleClose, handleNewConversation }) {
       <main>
         <p>{user.online ? "Online" : "Offline"}</p>
         <p>Bio: {user.bio}</p>
-        <button onClick={handleNewConversation}>New Conversation</button>
+        <button onClick={() => handleNewConversation(user)}>
+          New Conversation
+        </button>
       </main>
       <footer>
         <button onClick={handleClose}>Close</button>
