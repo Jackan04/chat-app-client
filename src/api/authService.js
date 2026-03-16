@@ -22,6 +22,26 @@ class AuthService {
 
     return data.token;
   }
+
+  async login(username, password) {
+    const response = await fetch(`${this.baseUrl}/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, password }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      const error = new Error(data.message);
+      error.validationErrors = data.validationErrors;
+      throw error;
+    }
+
+    return data.token;
+  }
 }
 
 export default AuthService;
