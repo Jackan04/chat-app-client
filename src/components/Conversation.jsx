@@ -48,6 +48,7 @@ export default function Conversation() {
                 {message.senderId === currentUser.id ? "You" : recipient}
               </small>
               <p>{message.content}</p>
+              <br />
             </div>
           ))}
         </ul>
