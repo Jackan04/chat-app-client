@@ -18,7 +18,7 @@ export default function ConversationList() {
 
         setConversations(conversations);
       } catch (error) {
-        setError(error);
+        setError(error.message);
       }
     }
 
