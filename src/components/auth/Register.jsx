@@ -1,16 +1,42 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import AuthService from "../../api/authService";
+import { useAuth } from "../../context/useAuth";
+
+const authService = new AuthService();
 
 export default function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const [validationErrors, setValidationErrors] = useState([]);
+  const { login } = useAuth();
 
-  function handleSubmit() {}
+  async function handleSubmit(event) {
+    event.preventDefault();
+    setValidationErrors([]);
+    try {
+      const token = await authService.register(
+        username,
+        password,
+        passwordConfirmation,
+      );
+      login(token);
+    } catch (error) {
+      if (error.validationErrors && error.validationErrors.length > 0) {
+        setValidationErrors(error.validationErrors);
+      }
+    }
+  }
   return (
     <div>
       <h2>Register</h2>
       <form onSubmit={handleSubmit}>
+        {validationErrors.length > 0 &&
+          validationErrors.map((error, index) => (
+            <p key={index}>{error.msg}</p>
+          ))}
+
         <label htmlFor="username">
           Username
           <input
@@ -31,7 +57,7 @@ export default function Register() {
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
-          <small>At least 8 characters</small>
+          <small>At least 6 characters</small>
         </label>
         <label htmlFor="passwordConfirmation">
           Confirm Password
