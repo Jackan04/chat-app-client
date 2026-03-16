@@ -46,6 +46,7 @@ export default function Conversation() {
       console.log(newMessage);
 
       setMessages((prevMessages) => [...prevMessages, newMessage]);
+      setMessage("");
     } catch (error) {
       setError(error.message);
     }
