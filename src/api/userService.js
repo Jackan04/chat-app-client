@@ -3,7 +3,7 @@ class UserService {
     this.baseUrl = "/api/users";
   }
 
-  async getUserByUsername(token, username) {
+  async getUsersByUsername(token, username) {
     const response = await fetch(`${this.baseUrl}?username=${username}`, {
       headers: {
         Authorization: `Bearer ${token}`,

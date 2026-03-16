@@ -14,7 +14,7 @@ export default function NewConversation() {
     event.preventDefault();
 
     try {
-      const result = await userService.getUserByUsername(token, searchQuery);
+      const result = await userService.getUsersByUsername(token, searchQuery);
       console.log(result);
 
       setUsers(result);
@@ -42,7 +42,8 @@ export default function NewConversation() {
         </form>
       </header>
       <ul>
-        {users.length > 0 && users.map((user) => <li>{user.username}</li>)}
+        {users.length > 0 &&
+          users.map((user) => <li key={user.id}>{user.username}</li>)}
       </ul>
     </>
   );
