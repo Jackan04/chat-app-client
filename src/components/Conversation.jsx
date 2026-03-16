@@ -52,7 +52,7 @@ export default function Conversation() {
         <p>Messages</p>
         <ul>
           {messages.map((message) => (
-            <li>
+            <li key={message.id}>
               Sender ID: {message.senderId} || Message: {message.content}
             </li>
           ))}
