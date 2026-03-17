@@ -96,7 +96,7 @@ export default function Profile() {
         )}
 
         {isEditing && (
-          <div>
+          <div className="flex gap-4">
             <button type="submit">Save</button>
             <button type="button" onClick={() => setIsEditing(false)}>
               Cancel

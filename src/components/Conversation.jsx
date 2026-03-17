@@ -68,8 +68,8 @@ export default function Conversation() {
   return (
     <section className="container">
       <h2>Conversation with {recipient}</h2>
-      <div>
-        <ul className="chat-messages">
+      <div className="flex-col justify-between">
+        <ul className="chat-messages flex-col gap-6">
           {messages.length === 0 ? (
             <EmptyState
               title="No messages yet"
@@ -77,11 +77,12 @@ export default function Conversation() {
             />
           ) : (
             messages.map((message) => (
-              <div key={message.id}>
+              <div className="flex gap-2 items-center" key={message.id}>
                 <small>
                   {message.senderId === currentUser.id ? "You" : recipient}
                 </small>
                 <p>{message.content}</p>
+
                 <br />
               </div>
             ))
