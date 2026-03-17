@@ -105,23 +105,31 @@ function UserDialog({
 }) {
   return (
     <dialog open={isOpen}>
-      <header>
-        <h2>{user.displayName}</h2>
-        <p>Username: {user.username}</p>
-      </header>
-      <main>
-        <p>Status: {user.online ? "Online" : "Offline"}</p>
-        <p>Bio: {user.bio}</p>
-        <button
-          disabled={user.id === currentUser.id}
-          onClick={() => handleNewConversation(user)}
-        >
-          New Conversation
-        </button>
-      </main>
-      <footer>
-        <button onClick={handleClose}>Close</button>
-      </footer>
+      <div className="flex-col gap-6">
+        <header className="flex-col gap-2">
+          <h2>{user.displayName}</h2>
+          <p className="text-secondary">Username: {user.username}</p>
+          <label
+            className={`badge ${user.online ? "badge-success" : "badge-danger"}`}
+          >
+            {user.online ? "Online" : "Offline"}
+          </label>
+        </header>
+        <main>
+          <p>Bio: {user.bio}</p>
+        </main>
+        <footer className="flex justify-between">
+          <button
+            disabled={user.id === currentUser.id}
+            onClick={() => handleNewConversation(user)}
+          >
+            New Conversation
+          </button>
+          <button className="btn-ghost" onClick={handleClose}>
+            Close
+          </button>
+        </footer>
+      </div>
     </dialog>
   );
 }

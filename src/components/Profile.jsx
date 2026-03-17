@@ -7,7 +7,7 @@ import LoadingMessage from "./LoadingMessage";
 const userService = new UserService();
 
 export default function Profile() {
-  const { currentUser, token, loadCurrentUser } = useAuth();
+  const { currentUser, token, loadCurrentUser, logout } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -90,15 +90,24 @@ export default function Profile() {
         </label>
 
         {!isEditing && (
-          <button type="button" onClick={handleEditStart}>
-            Edit
-          </button>
+          <div className="flex-col gap-4">
+            <button type="button" onClick={handleEditStart}>
+              Edit
+            </button>
+            <button className="btn-danger" onClick={logout}>
+              Logout
+            </button>
+          </div>
         )}
 
         {isEditing && (
           <div className="flex gap-4">
             <button type="submit">Save</button>
-            <button type="button" onClick={() => setIsEditing(false)}>
+            <button
+              className="btn-ghost"
+              type="button"
+              onClick={() => setIsEditing(false)}
+            >
               Cancel
             </button>
           </div>
