@@ -68,7 +68,7 @@ export default function NewConversation() {
         ) : (
           users.map((user) => (
             <div key={user.id}>
-              <li onClick={() => setIsOpen(user.id)}>{user.username}</li>
+              <li onClick={() => setIsOpen(user.id)}>{user.displayName}</li>
               <UserDialog
                 user={user}
                 isOpen={isOpen === user.id}
@@ -94,7 +94,7 @@ function UserDialog({
   return (
     <dialog open={isOpen}>
       <header>
-        <h2>{user.username}</h2>
+        <h2>{user.displayName}</h2>
       </header>
       <main>
         <p>{user.online ? "Online" : "Offline"}</p>
