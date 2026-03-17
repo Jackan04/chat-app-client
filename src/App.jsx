@@ -10,11 +10,13 @@ import Profile from "./components/Profile";
 
 function AppLayout() {
   return (
-    <div className="container">
-      <header>
+    <div className="app">
+      <header className="header">
         <Nav />
       </header>
-      <Outlet />
+      <main className="main">
+        <Outlet />
+      </main>
     </div>
   );
 }
