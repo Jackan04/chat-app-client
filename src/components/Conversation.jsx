@@ -60,7 +60,7 @@ export default function Conversation() {
     <section className="container">
       <h2>Conversation with {recipient}</h2>
       <div>
-        <ul>
+        <ul className="chat-messages">
           {messages.map((message) => (
             <div key={message.id}>
               <small>
