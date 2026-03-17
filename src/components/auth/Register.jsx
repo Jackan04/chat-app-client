@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import AuthService from "../../api/authService";
 import { useAuth } from "../../context/useAuth";
+import LoadingMessage from "../LoadingMessage";
 
 const authService = new AuthService();
 
@@ -11,11 +12,13 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [validationErrors, setValidationErrors] = useState([]);
+  const [loading, setLoading] = useState(false);
   const { login } = useAuth();
 
   async function handleSubmit(event) {
     event.preventDefault();
     setValidationErrors([]);
+    setLoading(true);
     try {
       const token = await authService.register(
         username,
@@ -23,13 +26,20 @@ export default function Register() {
         password,
         passwordConfirmation,
       );
-      login(token);
+      await login(token);
     } catch (error) {
       if (error.validationErrors && error.validationErrors.length > 0) {
         setValidationErrors(error.validationErrors);
       }
+    } finally {
+      setLoading(false);
     }
   }
+
+  if (loading) {
+    return <LoadingMessage />;
+  }
+
   return (
     <section className="container">
       <h2>Register</h2>
