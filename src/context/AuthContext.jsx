@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { AuthContext } from "./auth-context.js";
 import { useNavigate } from "react-router-dom";
 import AuthService from "../api/authService.js";
@@ -16,19 +16,29 @@ function AuthProvider({ children }) {
     setToken(null);
   };
 
-  const loadCurrentUser = async (authToken) => {
+  const loadCurrentUser = useCallback(async () => {
+    if (!token) return;
+
+    try {
+      const user = await authService.getCurrentUser(token);
+      setCurrentUser(user);
+    } catch {
+      clearAuth();
+    }
+  }, [token]);
+
+  const login = async (authToken) => {
+    localStorage.setItem("token", authToken);
+    setToken(authToken);
+
     try {
       const user = await authService.getCurrentUser(authToken);
       setCurrentUser(user);
     } catch {
       clearAuth();
+      return;
     }
-  };
 
-  const login = async (token) => {
-    localStorage.setItem("token", token);
-    setToken(token);
-    await loadCurrentUser(token);
     navigate("/");
   };
 
@@ -41,13 +51,20 @@ function AuthProvider({ children }) {
     if (!token) return;
 
     (async () => {
-      await loadCurrentUser(token);
+      await loadCurrentUser();
     })();
-  }, [token]);
+  }, [token, loadCurrentUser]);
 
   return (
     <AuthContext.Provider
-      value={{ token, login, logout, currentUser, isAuthenticated: !!token }}
+      value={{
+        token,
+        login,
+        logout,
+        currentUser,
+        loadCurrentUser,
+        isAuthenticated: !!token,
+      }}
     >
       {children}
     </AuthContext.Provider>
