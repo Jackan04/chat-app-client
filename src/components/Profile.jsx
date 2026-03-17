@@ -39,6 +39,7 @@ export default function Profile() {
     setIsEditing(true);
   }
 
+  if (!currentUser) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
   return (
@@ -47,7 +48,7 @@ export default function Profile() {
       <form onSubmit={handleSubmit}>
         <label htmlFor="username">
           Username
-          <input value={currentUser.username} disabled></input>
+          <input value={currentUser.username ?? ""} disabled></input>
         </label>
         <label htmlFor="online">
           Online
