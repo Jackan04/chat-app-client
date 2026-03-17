@@ -7,6 +7,7 @@ const authService = new AuthService();
 
 export default function Register() {
   const [username, setUsername] = useState("");
+  const [displayName, setDisplayName] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [validationErrors, setValidationErrors] = useState([]);
@@ -44,10 +45,21 @@ export default function Register() {
           <input
             type="text"
             id="username"
-            placeholder="Enter your username"
+            placeholder="Choose a username"
             value={username}
             onChange={(event) => setUsername(event.target.value)}
           />
+        </label>
+        <label htmlFor="displayName">
+          Display Name
+          <input
+            type="text"
+            id="displayName"
+            placeholder="Choose a display name"
+            value={displayName}
+            onChange={(event) => setDisplayName(event.target.value)}
+          />
+          <small>This is the name other users will see across the app</small>
         </label>
         <label htmlFor="password">
           Password
@@ -57,7 +69,7 @@ export default function Register() {
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
-          <small>At least 6 characters</small>
+          <small>Must be at least 6 characters</small>
         </label>
         <label htmlFor="passwordConfirmation">
           Confirm Password
