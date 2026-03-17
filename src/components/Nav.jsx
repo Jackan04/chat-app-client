@@ -4,18 +4,18 @@ import { useAuth } from "../context/useAuth";
 export default function Nav() {
   const { isAuthenticated, logout } = useAuth();
   return (
-    <nav>
+    <nav className="flex justify-between items-center">
       <Link to="/">Chat App</Link>
-      <ul>
+      <ul className="flex items-center gap-2">
         {isAuthenticated && (
           <>
-            <li>
+            <li className="btn">
               <NavLink to="/">Conversations</NavLink>
             </li>
-            <li>
+            <li className="btn">
               <NavLink to="/conversations/new">New Conversation</NavLink>
             </li>
-            <li>
+            <li className="btn">
               <NavLink to="/profile">Profile</NavLink>
             </li>
             <li>
