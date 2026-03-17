@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../context/useAuth";
 import UserService from "../api/userService";
+import ErrorMessage from "./ErrorMessage";
 
 const userService = new UserService();
 
@@ -40,7 +41,7 @@ export default function Profile() {
   }
 
   if (!currentUser) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
+  if (error) return <ErrorMessage message={error} />;
 
   return (
     <section className="container">

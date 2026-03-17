@@ -3,6 +3,7 @@ import UserService from "../api/userService";
 import ConversationService from "../api/conversationService";
 import { useAuth } from "../context/useAuth";
 import { useNavigate } from "react-router-dom";
+import ErrorMessage from "./ErrorMessage";
 
 const userService = new UserService();
 const conversationService = new ConversationService();
@@ -45,7 +46,7 @@ export default function NewConversation() {
   }
 
   if (error) {
-    return <p>{error}</p>;
+    return <ErrorMessage message={error} />;
   }
 
   return (

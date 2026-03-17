@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../context/useAuth";
 import { Link } from "react-router-dom";
 import { getRecipient } from "../utils/helpers";
+import ErrorMessage from "./ErrorMessage";
 
 const conversationService = new ConversationService();
 
@@ -30,7 +31,7 @@ export default function ConversationList() {
   }
 
   if (error) {
-    return <p>Error: {error}</p>;
+    return <ErrorMessage message={error} />;
   }
 
   return (

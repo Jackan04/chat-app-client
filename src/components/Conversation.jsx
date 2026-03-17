@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import ConversationService from "../api/conversationService";
 import { useAuth } from "../context/useAuth";
 import { getRecipient } from "../utils/helpers";
+import ErrorMessage from "./ErrorMessage";
 
 const conversationService = new ConversationService();
 
@@ -53,7 +54,7 @@ export default function Conversation() {
   }
 
   if (error) {
-    return <p>Error: {error}</p>;
+    return <ErrorMessage message={error} />;
   }
 
   return (
