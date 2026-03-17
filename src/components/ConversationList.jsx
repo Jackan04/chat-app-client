@@ -31,17 +31,14 @@ export default function ConversationList() {
     load();
   }, [token]);
 
-  if (loading) {
-    return <LoadingMessage />;
-  }
+  if (loading) return <LoadingMessage />;
+  if (error) return <ErrorMessage message={error} />;  
 
   if (conversations.length === 0) {
     return <p>No conversations to display</p>;
   }
 
-  if (error) {
-    return <ErrorMessage message={error} />;
-  }
+  
 
   return (
     <section className="container">

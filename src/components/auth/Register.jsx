@@ -36,9 +36,7 @@ export default function Register() {
     }
   }
 
-  if (loading) {
-    return <LoadingMessage />;
-  }
+  if (loading) return <LoadingMessage />;
 
   return (
     <section className="container">

@@ -61,13 +61,8 @@ export default function Conversation() {
     }
   }
 
-  if (loading) {
-    return <LoadingMessage />;
-  }
-
-  if (error) {
-    return <ErrorMessage message={error} />;
-  }
+  if (loading) return <LoadingMessage />;
+  if (error) return <ErrorMessage message={error} />;
 
   return (
     <section className="container">
