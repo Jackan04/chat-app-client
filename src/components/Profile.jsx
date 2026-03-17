@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAuth } from "../context/useAuth";
 import UserService from "../api/userService";
 import ErrorMessage from "./ErrorMessage";
+import LoadingMessage from "./LoadingMessage";
 
 const userService = new UserService();
 
@@ -9,6 +10,7 @@ export default function Profile() {
   const { currentUser, token, loadCurrentUser } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const [displayName, setDisplayName] = useState("");
   const [bio, setBio] = useState("");
   const [online, setOnline] = useState(false);
@@ -18,6 +20,7 @@ export default function Profile() {
 
     if (!currentUser) return;
 
+    setLoading(true);
     try {
       await userService.updateUser(token, currentUser.id, {
         displayName,
@@ -28,6 +31,8 @@ export default function Profile() {
       setIsEditing(false);
     } catch (error) {
       setError(error.message);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -40,7 +45,8 @@ export default function Profile() {
     setIsEditing(true);
   }
 
-  if (!currentUser) return <p>Loading...</p>;
+  if (loading) return <LoadingMessage />;
+  if (!currentUser) return <LoadingMessage />;
   if (error) return <ErrorMessage message={error} />;
 
   return (

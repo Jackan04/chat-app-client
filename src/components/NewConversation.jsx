@@ -4,6 +4,7 @@ import ConversationService from "../api/conversationService";
 import { useAuth } from "../context/useAuth";
 import { useNavigate } from "react-router-dom";
 import ErrorMessage from "./ErrorMessage";
+import LoadingMessage from "./LoadingMessage";
 
 const userService = new UserService();
 const conversationService = new ConversationService();
@@ -14,6 +15,7 @@ export default function NewConversation() {
   const [hasSearched, setHasSearched] = useState(false);
   const [users, setUsers] = useState([]);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(null);
   const navigate = useNavigate();
 
@@ -21,18 +23,22 @@ export default function NewConversation() {
     event.preventDefault();
     if (!searchQuery) return;
     setHasSearched(true);
+    setLoading(true);
     try {
       const result = await userService.getUsersByUsername(token, searchQuery);
       console.log(result);
       setUsers(result);
     } catch (error) {
       setError(error.message);
+    } finally {
+      setLoading(false);
     }
   }
 
   async function handleNewConversation(recipient) {
     if (!currentUser) return;
 
+    setLoading(true);
     try {
       const participants = [currentUser, recipient];
       const result = await conversationService.createConversation(
@@ -42,7 +48,13 @@ export default function NewConversation() {
       navigate(`/conversations/${result.id}`);
     } catch (error) {
       setError(error.message);
+    } finally {
+      setLoading(false);
     }
+  }
+
+  if (loading) {
+    return <LoadingMessage />;
   }
 
   if (error) {

@@ -4,6 +4,7 @@ import ConversationService from "../api/conversationService";
 import { useAuth } from "../context/useAuth";
 import { getRecipient } from "../utils/helpers";
 import ErrorMessage from "./ErrorMessage";
+import LoadingMessage from "./LoadingMessage";
 
 const conversationService = new ConversationService();
 
@@ -12,6 +13,7 @@ export default function Conversation() {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const { id } = useParams();
   const { token, currentUser } = useAuth();
 
@@ -19,6 +21,7 @@ export default function Conversation() {
     if (!currentUser) return;
 
     async function load() {
+      setLoading(true);
       try {
         const conversation = await conversationService.getConversationById(
           token,
@@ -29,6 +32,8 @@ export default function Conversation() {
         setRecipient(getRecipient(conversation.participants, currentUser));
       } catch (error) {
         setError(error.message);
+      } finally {
+        setLoading(false);
       }
     }
 
@@ -38,6 +43,7 @@ export default function Conversation() {
   async function handleSubmit(event) {
     event.preventDefault();
     if (!message) return;
+    setLoading(true);
     try {
       const newMessage = await conversationService.sendMessage(
         token,
@@ -50,7 +56,13 @@ export default function Conversation() {
       setMessage("");
     } catch (error) {
       setError(error.message);
+    } finally {
+      setLoading(false);
     }
+  }
+
+  if (loading) {
+    return <LoadingMessage />;
   }
 
   if (error) {
