@@ -37,24 +37,6 @@ class UserService {
     return data;
   }
 
-  async toggleUserStatus(token, id) {
-    const response = await fetch(`${this.baseUrl}/${id}/status`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw Error(data.message);
-    }
-
-    return data;
-  }
-
   async updateUser(token, id, user) {
     const response = await fetch(`${this.baseUrl}/${id}`, {
       method: "POST",
