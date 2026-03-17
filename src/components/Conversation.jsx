@@ -57,7 +57,7 @@ export default function Conversation() {
   }
 
   return (
-    <>
+    <section className="container">
       <h2>Conversation with {recipient}</h2>
       <div>
         <ul>
@@ -82,6 +82,6 @@ export default function Conversation() {
           <button type="submit">Send</button>
         </form>
       </div>
-    </>
+    </section>
   );
 }

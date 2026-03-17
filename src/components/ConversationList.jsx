@@ -34,7 +34,7 @@ export default function ConversationList() {
   }
 
   return (
-    <>
+    <section className="container">
       <h2>Conversations</h2>
       <ul>
         {conversations.map((conversation) => (
@@ -45,6 +45,6 @@ export default function ConversationList() {
           </li>
         ))}
       </ul>
-    </>
+    </section>
   );
 }

@@ -49,7 +49,7 @@ export default function NewConversation() {
   }
 
   return (
-    <>
+    <section className="container">
       <header>
         <form onSubmit={handleSubmit}>
           <input
@@ -80,7 +80,7 @@ export default function NewConversation() {
           ))
         )}
       </ul>
-    </>
+    </section>
   );
 }
 

@@ -29,7 +29,7 @@ export default function Register() {
     }
   }
   return (
-    <div>
+    <section className="container">
       <h2>Register</h2>
       <form onSubmit={handleSubmit}>
         <ul>
@@ -73,6 +73,6 @@ export default function Register() {
       <p>
         Already have an account? <Link to="/login">Login</Link>
       </p>
-    </div>
+    </section>
   );
 }

@@ -42,7 +42,7 @@ export default function Profile() {
   if (error) return <p>{error}</p>;
 
   return (
-    <>
+    <section className="container">
       <h2>Profile</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="username">
@@ -88,14 +88,14 @@ export default function Profile() {
         )}
 
         {isEditing && (
-          <>
+          <div>
             <button type="submit">Save</button>
             <button type="button" onClick={() => setIsEditing(false)}>
               Cancel
             </button>
-          </>
+          </div>
         )}
       </form>
-    </>
+    </section>
   );
 }
