@@ -95,9 +95,10 @@ function UserDialog({
     <dialog open={isOpen}>
       <header>
         <h2>{user.displayName}</h2>
+        <p>Username: {user.username}</p>
       </header>
       <main>
-        <p>{user.online ? "Online" : "Offline"}</p>
+        <p>Status: {user.online ? "Online" : "Offline"}</p>
         <p>Bio: {user.bio}</p>
         <button
           disabled={user.id === currentUser.id}
