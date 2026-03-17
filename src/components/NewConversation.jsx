@@ -5,6 +5,7 @@ import { useAuth } from "../context/useAuth";
 import { useNavigate } from "react-router-dom";
 import ErrorMessage from "./ErrorMessage";
 import LoadingMessage from "./LoadingMessage";
+import EmptyState from "./EmptyState";
 
 const userService = new UserService();
 const conversationService = new ConversationService();
@@ -72,7 +73,10 @@ export default function NewConversation() {
       </header>
       <ul>
         {hasSearched && users.length === 0 ? (
-          <p>No users found</p>
+          <EmptyState
+            title="No users found"
+            message="Try searching for a different username"
+          />
         ) : (
           users.map((user) => (
             <div key={user.id}>

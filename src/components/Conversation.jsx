@@ -5,6 +5,7 @@ import { useAuth } from "../context/useAuth";
 import { getRecipient } from "../utils/helpers";
 import ErrorMessage from "./ErrorMessage";
 import LoadingMessage from "./LoadingMessage";
+import EmptyState from "./EmptyState";
 
 const conversationService = new ConversationService();
 
@@ -69,15 +70,22 @@ export default function Conversation() {
       <h2>Conversation with {recipient}</h2>
       <div>
         <ul className="chat-messages">
-          {messages.map((message) => (
-            <div key={message.id}>
-              <small>
-                {message.senderId === currentUser.id ? "You" : recipient}
-              </small>
-              <p>{message.content}</p>
-              <br />
-            </div>
-          ))}
+          {messages.length === 0 ? (
+            <EmptyState
+              title="No messages yet"
+              message="Send the first message to start this conversation."
+            />
+          ) : (
+            messages.map((message) => (
+              <div key={message.id}>
+                <small>
+                  {message.senderId === currentUser.id ? "You" : recipient}
+                </small>
+                <p>{message.content}</p>
+                <br />
+              </div>
+            ))
+          )}
         </ul>
         <form onSubmit={handleSubmit}>
           <input

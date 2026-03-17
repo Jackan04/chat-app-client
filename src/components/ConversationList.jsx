@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { getRecipient } from "../utils/helpers";
 import ErrorMessage from "./ErrorMessage";
 import LoadingMessage from "./LoadingMessage";
+import EmptyState from "./EmptyState";
 
 const conversationService = new ConversationService();
 
@@ -35,7 +36,12 @@ export default function ConversationList() {
   if (error) return <ErrorMessage message={error} />;  
 
   if (conversations.length === 0) {
-    return <p>No conversations to display</p>;
+    return (
+      <EmptyState
+        title="No conversations yet"
+        message="Start a new conversation to see it listed here."
+      />
+    );
   }
 
   
