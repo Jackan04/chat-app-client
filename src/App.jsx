@@ -7,6 +7,7 @@ import ConversationList from "./components/ConversationList";
 import Conversation from "./components/Conversation";
 import NewConversation from "./components/NewConversation";
 import Profile from "./components/Profile";
+import NotFound from "./components/NotFound";
 
 function AppLayout() {
   return (
@@ -27,6 +28,7 @@ function App() {
       <Route element={<AppLayout />}>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="*" element={<NotFound />} />
 
         <Route element={<ProtectedRoute />}>
           <Route index element={<ConversationList />} />
