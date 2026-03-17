@@ -264,7 +264,6 @@ form {
   flex-direction: column;
   gap: var(--space-2);
   overflow-y: auto;
-  flex: 1;
 }
 
 .flex {
@@ -301,6 +300,10 @@ form {
 }
 .justify-end {
   justify-content: flex-end;
+}
+
+.self-end {
+  align-self: flex-end;
 }
 
 .gap-1 {

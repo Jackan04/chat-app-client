@@ -6,6 +6,7 @@ import { getRecipient } from "../utils/helpers";
 import ErrorMessage from "./ErrorMessage";
 import LoadingMessage from "./LoadingMessage";
 import EmptyState from "./EmptyState";
+import { useNavigate } from "react-router-dom";
 
 const conversationService = new ConversationService();
 
@@ -17,6 +18,7 @@ export default function Conversation() {
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
   const { token, currentUser } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!currentUser) return;
@@ -67,8 +69,11 @@ export default function Conversation() {
 
   return (
     <section className="container">
+      <button className="btn-ghost w-fit" onClick={() => navigate(-1)}>
+        Go back
+      </button>
       <h2>Conversation with {recipient}</h2>
-      <div className="flex-col justify-between">
+      <div>
         <ul className="chat-messages flex-col gap-6">
           {messages.length === 0 ? (
             <EmptyState
@@ -77,11 +82,27 @@ export default function Conversation() {
             />
           ) : (
             messages.map((message) => (
-              <div className="flex gap-2 items-center" key={message.id}>
-                <small>
-                  {message.senderId === currentUser.id ? "You" : recipient}
-                </small>
-                <p>{message.content}</p>
+              <div
+                className={`
+                  flex
+                  gap-2
+                  ${message.senderId === currentUser.id ? "justify-end" : ""}
+                `}
+                key={message.id}
+              >
+                <p
+                  className={`
+                    p-3
+                    rounded-full
+                    ${
+                      message.senderId === currentUser.id
+                        ? "bg-success"
+                        : "bg-surface"
+                    }
+                      `}
+                >
+                  {message.content}
+                </p>
 
                 <br />
               </div>
@@ -89,14 +110,16 @@ export default function Conversation() {
           )}
         </ul>
         <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Enter a message"
-            id="message"
-            value={message}
-            onChange={(event) => setMessage(event.target.value)}
-          />
-          <button type="submit">Send</button>
+          <div className="flex gap-4 mt-4">
+            <input
+              type="text"
+              placeholder="Enter a message"
+              id="message"
+              value={message}
+              onChange={(event) => setMessage(event.target.value)}
+            />
+            <button type="submit">Send</button>
+          </div>
         </form>
       </div>
     </section>
