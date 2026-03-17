@@ -19,6 +19,7 @@ export default function Register() {
     try {
       const token = await authService.register(
         username,
+        displayName,
         password,
         passwordConfirmation,
       );
