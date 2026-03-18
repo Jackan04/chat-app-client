@@ -37,54 +37,54 @@ export default function ConversationList() {
   if (loading) return <LoadingMessage />;
   if (error) return <ErrorMessage message={error} />;
 
-  if (conversations.length === 0) {
-    return (
-      <EmptyState
-        title="No conversations yet"
-        message="Start a new conversation to see it listed here."
-      />
-    );
-  }
-
   return (
     <section className="container">
       <h2>Conversations</h2>
-      <div className="table">
-        <table>
-          <tbody>
-            {conversations.map((conversation) => {
-              const recipient = getRecipient(
-                conversation.participants,
-                currentUser,
-              );
+      {conversations.length === 0 ? (
+        <EmptyState
+          title="No conversations yet"
+          message="Start a new conversation to see it listed here."
+        />
+      ) : (
+        <div className="table">
+          <table>
+            <tbody>
+              {conversations.map((conversation) => {
+                const recipient = getRecipient(
+                  conversation.participants,
+                  currentUser,
+                );
 
-              return (
-                <tr
-                  onClick={() => navigate(`/conversations/${conversation.id}`)}
-                  key={conversation.id}
-                >
-                  <td className="hstack gap-4">
-                    <figure data-variant="avatar">
-                      <i className="fa-solid fa-user"></i>
-                    </figure>
-                    {recipient.displayName}
-                  </td>
-                  <td>
-                    <span
-                      className={`badge ${recipient.online ? "success" : "danger"}`}
-                    >
-                      {recipient.online ? "Online" : "Offline"}
-                    </span>
-                  </td>
-                  <td>
-                    {new Date(conversation.createdAt).toLocaleDateString()}
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+                return (
+                  <tr
+                    onClick={() =>
+                      navigate(`/conversations/${conversation.id}`)
+                    }
+                    key={conversation.id}
+                  >
+                    <td className="hstack gap-4">
+                      <figure data-variant="avatar">
+                        <i className="fa-solid fa-user"></i>
+                      </figure>
+                      {recipient.displayName}
+                    </td>
+                    <td>
+                      <span
+                        className={`badge ${recipient.online ? "success" : "danger"}`}
+                      >
+                        {recipient.online ? "Online" : "Offline"}
+                      </span>
+                    </td>
+                    <td>
+                      {new Date(conversation.createdAt).toLocaleDateString()}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
     </section>
   );
 }
