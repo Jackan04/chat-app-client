@@ -11,17 +11,21 @@ export default function Nav() {
           <>
             <li>
               <NavLink className="button outline" to="/">
+                <i className="fa-solid fa-comments"></i>
                 Conversations
               </NavLink>
             </li>
             <li>
               <NavLink className="button outline" to="/conversations/new">
-                New Conversation
+                <i className="fa-solid fa-plus"></i>
+                Conversation
               </NavLink>
             </li>
             <li>
-              <NavLink className="button outline" to="/profile">
-                Profile
+              <NavLink to="/profile">
+                <figure data-variant="avatar">
+                  <i className="fa-solid fa-user"></i>
+                </figure>
               </NavLink>
             </li>
           </>
@@ -31,11 +35,13 @@ export default function Nav() {
           <>
             <li>
               <NavLink className="button outline" to="/login">
+                <i class="fa-solid fa-arrow-right-to-bracket"></i>
                 Login
               </NavLink>
             </li>
             <li>
               <NavLink className="button outline" to="/register">
+                <i class="fa-solid fa-user"></i>
                 Register
               </NavLink>
             </li>
