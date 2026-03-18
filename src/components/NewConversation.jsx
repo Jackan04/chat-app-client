@@ -59,6 +59,7 @@ export default function NewConversation() {
 
   return (
     <section className="container">
+      <h2>New Conversation</h2>
       <header>
         <form onSubmit={handleSubmit}>
           <label data-field htmlFor="user">
@@ -81,13 +82,8 @@ export default function NewConversation() {
       ) : (
         <>
           <div className="table mt-6">
+            <p>Result: {users.length}</p>
             <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
               <tbody>
                 {users.map((user) => (
                   <tr key={user.id} onClick={() => setIsOpen(user.id)}>
