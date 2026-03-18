@@ -3,12 +3,14 @@ import { Link } from "react-router-dom";
 import AuthService from "../../api/authService";
 import { useAuth } from "../../context/useAuth";
 import LoadingMessage from "../LoadingMessage";
+import ErrorMessage from "../ErrorMessage";
 
 const authService = new AuthService();
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [validationErrors, setValidationErrors] = useState([]);
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
@@ -21,7 +23,9 @@ export default function Login() {
       const token = await authService.login(username, password);
       await login(token);
     } catch (error) {
+      setError(error);
       if (error.validationErrors && error.validationErrors.length > 0) {
+        setError("");
         setValidationErrors(error.validationErrors);
       }
     } finally {
@@ -30,6 +34,7 @@ export default function Login() {
   }
 
   if (loading) return <LoadingMessage />;
+  if (error) return <ErrorMessage />;
 
   return (
     <section className="container">
