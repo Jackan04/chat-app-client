@@ -10,6 +10,7 @@ const userService = new UserService();
 export default function Profile() {
   const { currentUser, token, loadCurrentUser, logout } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
+  const [validationErrors, setValidationErrors] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [displayName, setDisplayName] = useState("");
@@ -21,6 +22,8 @@ export default function Profile() {
 
     if (!currentUser) return;
 
+    setError("");
+    setValidationErrors([]);
     setLoading(true);
     try {
       await userService.updateUser(token, currentUser.id, {
@@ -32,6 +35,11 @@ export default function Profile() {
       setIsEditing(false);
     } catch (error) {
       setError(error.message);
+
+      if (error.validationErrors && error.validationErrors.length > 0) {
+        setError("");
+        setValidationErrors(error.validationErrors);
+      }
     } finally {
       setLoading(false);
     }
@@ -54,6 +62,12 @@ export default function Profile() {
     <section className="container">
       <PageHeader title="Profile" />
       <form onSubmit={handleSubmit}>
+        <ul>
+          {validationErrors.length > 0 &&
+            validationErrors.map((error, index) => (
+              <li key={index}>{error.msg}</li>
+            ))}
+        </ul>
         <label data-field htmlFor="username">
           Username
           <input value={currentUser.username ?? ""} disabled></input>
@@ -95,7 +109,12 @@ export default function Profile() {
             <button type="button" onClick={handleEditStart}>
               Edit
             </button>
-            <button className="outline" data-variant="danger" onClick={logout}>
+            <button
+              type="button"
+              className="outline"
+              data-variant="danger"
+              onClick={logout}
+            >
               Logout
             </button>
           </div>
