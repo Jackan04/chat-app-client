@@ -81,8 +81,13 @@ export default function NewConversation() {
           />
         ) : (
           users.map((user) => (
-            <div key={user.id}>
-              <li onClick={() => setIsOpen(user.id)}>{user.displayName}</li>
+            <div className="mt-6" key={user.id}>
+              <li className="hstack gap-4" onClick={() => setIsOpen(user.id)}>
+                <figure data-variant="avatar">
+                  <i className="fa-solid fa-user"></i>
+                </figure>
+                {user.displayName}
+              </li>
               <UserDialog
                 user={user}
                 isOpen={isOpen === user.id}
@@ -123,7 +128,9 @@ function UserDialog({
           >
             New Conversation
           </button>
-          <button onClick={handleClose}>Close</button>
+          <button className="outline" onClick={handleClose}>
+            Close
+          </button>
         </footer>
       </div>
     </dialog>
