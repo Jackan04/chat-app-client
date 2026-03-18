@@ -35,13 +35,13 @@ export default function Nav() {
           <>
             <li>
               <NavLink className="button outline" to="/login">
-                <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                <i className="fa-solid fa-arrow-right-to-bracket"></i>
                 Login
               </NavLink>
             </li>
             <li>
               <NavLink className="button outline" to="/register">
-                <i class="fa-solid fa-user"></i>
+                <i className="fa-solid fa-user"></i>
                 Register
               </NavLink>
             </li>
