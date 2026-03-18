@@ -6,6 +6,7 @@ import { getRecipient } from "../utils/helpers";
 import ErrorMessage from "./ErrorMessage";
 import LoadingMessage from "./LoadingMessage";
 import EmptyState from "./EmptyState";
+import { useNavigate } from "react-router-dom";
 
 const conversationService = new ConversationService();
 
@@ -14,6 +15,7 @@ export default function ConversationList() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const { token, currentUser } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function load() {
@@ -57,14 +59,15 @@ export default function ConversationList() {
               );
 
               return (
-                <tr key={conversation.id}>
+                <tr
+                  onClick={() => navigate(`/conversations/${conversation.id}`)}
+                  key={conversation.id}
+                >
                   <td className="hstack gap-4">
                     <figure data-variant="avatar">
                       <i className="fa-solid fa-user"></i>
                     </figure>
-                    <Link to={`/conversations/${conversation.id}`}>
-                      {recipient.displayName}
-                    </Link>
+                    {recipient.displayName}
                   </td>
                   <td>
                     <span
