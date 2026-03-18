@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import ConversationService from "../api/conversationService";
 import { useAuth } from "../context/useAuth";
 import { getRecipient } from "../utils/helpers";
@@ -7,7 +7,6 @@ import ErrorMessage from "./ErrorMessage";
 import LoadingMessage from "./LoadingMessage";
 import EmptyState from "./EmptyState";
 import PageHeader from "./PageHeader";
-import { useNavigate } from "react-router-dom";
 
 const conversationService = new ConversationService();
 
@@ -17,9 +16,9 @@ export default function Conversation() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const messagesContainerRef = useRef(null);
   const { id } = useParams();
   const { token, currentUser } = useAuth();
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (!currentUser) return;
@@ -43,6 +42,13 @@ export default function Conversation() {
 
     load();
   }, [currentUser, id, token]);
+
+  useEffect(() => {
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop =
+        messagesContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -71,30 +77,35 @@ export default function Conversation() {
   return (
     <section className="container">
       <PageHeader title={recipient?.displayName} />
-      <div className="vstack">
-        <ul className="unstyled vstack">
-          {messages.length === 0 ? (
-            <EmptyState
-              title="No messages yet"
-              message="Send the first message to start this conversation."
-            />
-          ) : (
-            messages.map((message) => (
-              <div
-                className={
-                  message.senderId === currentUser.id
-                    ? "hstack justify-end"
-                    : "hstack"
-                }
-                key={message.id}
-              >
-                <p>{message.content}</p>
+      <div className="chat-wrapper">
+        <div className="messages-container" ref={messagesContainerRef}>
+          <ul className="unstyled vstack">
+            {messages.length === 0 ? (
+              <EmptyState
+                title="No messages yet"
+                message="Send the first message to start this conversation."
+              />
+            ) : (
+              messages.map((message) => {
+                const isSent = message.senderId === currentUser.id;
+                return (
+                  <div
+                    className={isSent ? "hstack justify-end" : "hstack"}
+                    key={message.id}
+                  >
+                    <p
+                      className={`message ${isSent ? "message-sent" : "message-received"}`}
+                    >
+                      {message.content}
+                    </p>
 
-                <br />
-              </div>
-            ))
-          )}
-        </ul>
+                    <br />
+                  </div>
+                );
+              })
+            )}
+          </ul>
+        </div>
         <form onSubmit={handleSubmit}>
           <div className="hstack">
             <input
