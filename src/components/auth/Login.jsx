@@ -66,6 +66,7 @@ export default function Login() {
         </label>
         <button type="submit">Login</button>
       </form>
+      <br />
       <p>
         Don't have an account yet? <Link to="/register">Register</Link>
       </p>

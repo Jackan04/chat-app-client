@@ -94,6 +94,7 @@ export default function Register() {
         </label>
         <button type="submit">Register</button>
       </form>
+      <br />
       <p>
         Already have an account? <Link to="/login">Login</Link>
       </p>
