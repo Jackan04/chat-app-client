@@ -61,13 +61,15 @@ export default function NewConversation() {
     <section className="container">
       <header>
         <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Search for a user"
-            id="user"
-            value={searchQuery}
-            onChange={(event) => setSearchQuery(event.target.value)}
-          />
+          <label data-field htmlFor="user">
+            <input
+              type="text"
+              placeholder="Search for a user"
+              id="user"
+              value={searchQuery}
+              onChange={(event) => setSearchQuery(event.target.value)}
+            />
+          </label>
           <button type="submit">Search</button>
         </form>
       </header>
