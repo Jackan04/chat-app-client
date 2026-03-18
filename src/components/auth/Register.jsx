@@ -4,6 +4,7 @@ import AuthService from "../../api/authService";
 import { useAuth } from "../../context/useAuth";
 import LoadingMessage from "../LoadingMessage";
 import ErrorMessage from "../ErrorMessage";
+import ValidationErrorsMessage from "../validationErrorsMessage";
 
 const authService = new AuthService();
 
@@ -47,12 +48,9 @@ export default function Register() {
     <section className="container">
       <h2>Register</h2>
       <form onSubmit={handleSubmit}>
-        <ul>
-          {validationErrors.length > 0 &&
-            validationErrors.map((error, index) => (
-              <li key={index}>{error.msg}</li>
-            ))}
-        </ul>
+        {validationErrors.length > 0 && (
+          <ValidationErrorsMessage validationErrors={validationErrors} />
+        )}
 
         <label data-field htmlFor="username">
           Username

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAuth } from "../context/useAuth";
 import UserService from "../api/userService";
 import ErrorMessage from "./ErrorMessage";
+import ValidationErrorsMessage from "./validationErrorsMessage";
 import LoadingMessage from "./LoadingMessage";
 import PageHeader from "./PageHeader";
 
@@ -62,12 +63,9 @@ export default function Profile() {
     <section className="container">
       <PageHeader title="Profile" />
       <form onSubmit={handleSubmit}>
-        <ul>
-          {validationErrors.length > 0 &&
-            validationErrors.map((error, index) => (
-              <li key={index}>{error.msg}</li>
-            ))}
-        </ul>
+        {validationErrors.length > 0 && (
+          <ValidationErrorsMessage validationErrors={validationErrors} />
+        )}
         <label data-field htmlFor="username">
           Username
           <input value={currentUser.username ?? ""} disabled></input>
