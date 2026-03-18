@@ -3,5 +3,5 @@ export function getRecipient(participants, currentUser) {
     (participant) => participant.id !== currentUser.id,
   );
 
-  return recipient.displayName;
+  return recipient;
 }
