@@ -73,32 +73,55 @@ export default function NewConversation() {
           <button type="submit">Search</button>
         </form>
       </header>
-      <ul className="unstyled vstack">
-        {hasSearched && users.length === 0 ? (
-          <EmptyState
-            title="No users found"
-            message="Try searching for a different username"
-          />
-        ) : (
-          users.map((user) => (
-            <div className="mt-6" key={user.id}>
-              <li className="hstack gap-4" onClick={() => setIsOpen(user.id)}>
-                <figure data-variant="avatar">
-                  <i className="fa-solid fa-user"></i>
-                </figure>
-                {user.displayName}
-              </li>
-              <UserDialog
-                user={user}
-                isOpen={isOpen === user.id}
-                currentUser={currentUser}
-                handleClose={() => setIsOpen(null)}
-                handleNewConversation={handleNewConversation}
-              />
-            </div>
-          ))
-        )}
-      </ul>
+      {hasSearched && users.length === 0 ? (
+        <EmptyState
+          title="No users found"
+          message="Try searching for a different username"
+        />
+      ) : (
+        <>
+          <div className="table mt-6">
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {users.map((user) => (
+                  <tr key={user.id} onClick={() => setIsOpen(user.id)}>
+                    <td className="hstack gap-4">
+                      <figure data-variant="avatar">
+                        <i className="fa-solid fa-user"></i>
+                      </figure>
+                      {user.displayName}
+                    </td>
+                    <td>
+                      <span
+                        className={`badge ${user.online ? "success" : "danger"}`}
+                      >
+                        {user.online ? "Online" : "Offline"}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {users.map((user) => (
+            <UserDialog
+              key={user.id}
+              user={user}
+              isOpen={isOpen === user.id}
+              currentUser={currentUser}
+              handleClose={() => setIsOpen(null)}
+              handleNewConversation={handleNewConversation}
+            />
+          ))}
+        </>
+      )}
     </section>
   );
 }
@@ -114,12 +137,17 @@ function UserDialog({
     <dialog open={isOpen}>
       <div className="vstack">
         <header className="vstack">
-          <h2>{user.displayName}</h2>
+          <div className="hstack justify-between">
+            <h2>{user.displayName}</h2>
+            <span className={`badge ${user.online ? "success" : "danger"}`}>
+              {user.online ? "Online" : "Offline"}
+            </span>
+          </div>
           <p>Username: {user.username}</p>
-          <label>{user.online ? "Online" : "Offline"}</label>
         </header>
         <main>
-          <p>Bio: {user.bio}</p>
+          <h4>About</h4>
+          <p>{user.bio}</p>
         </main>
         <footer className="hstack justify-between">
           <button
