@@ -41,7 +41,7 @@ export default function Login() {
               <li key={index}>{error.msg}</li>
             ))}
         </ul>
-        <label htmlFor="username">
+        <label data-field htmlFor="username">
           Username
           <input
             type="text"
@@ -51,7 +51,7 @@ export default function Login() {
             onChange={(event) => setUsername(event.target.value)}
           />
         </label>
-        <label htmlFor="password">
+        <label data-field htmlFor="password">
           Password
           <input
             type="password"

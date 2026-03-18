@@ -53,11 +53,11 @@ export default function Profile() {
     <section className="container">
       <h2>Profile</h2>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="username">
+        <label data-field htmlFor="username">
           Username
           <input value={currentUser.username ?? ""} disabled></input>
         </label>
-        <label htmlFor="online">
+        <label data-field htmlFor="online">
           Online
           <input
             id="online"
@@ -68,7 +68,7 @@ export default function Profile() {
           />
         </label>
 
-        <label htmlFor="displayName">
+        <label data-field htmlFor="displayName">
           Display Name
           <input
             value={isEditing ? displayName : (currentUser.displayName ?? "")}
@@ -78,7 +78,7 @@ export default function Profile() {
             onChange={(event) => setDisplayName(event.target.value)}
           />
         </label>
-        <label htmlFor="bio">
+        <label data-field htmlFor="bio">
           Bio
           <input
             type="text"

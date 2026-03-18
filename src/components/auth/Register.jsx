@@ -49,7 +49,7 @@ export default function Register() {
             ))}
         </ul>
 
-        <label htmlFor="username">
+        <label data-field htmlFor="username">
           Username
           <input
             type="text"
@@ -59,7 +59,7 @@ export default function Register() {
             onChange={(event) => setUsername(event.target.value)}
           />
         </label>
-        <label htmlFor="displayName">
+        <label data-field htmlFor="displayName">
           Display Name
           <input
             type="text"
@@ -70,7 +70,7 @@ export default function Register() {
           />
           <small>This is the name other users will see across the app</small>
         </label>
-        <label htmlFor="password">
+        <label data-field htmlFor="password">
           Password
           <input
             type="password"
@@ -80,7 +80,7 @@ export default function Register() {
           />
           <small>Must be at least 6 characters</small>
         </label>
-        <label htmlFor="passwordConfirmation">
+        <label data-field htmlFor="passwordConfirmation">
           Confirm Password
           <input
             type="password"
