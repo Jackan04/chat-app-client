@@ -1,8 +1,9 @@
 export default function Error({ message }) {
   return (
     <div>
-      <h3>There was an error</h3>
-      <p>{message}</p>
+      <div role="alert" data-variant="error">
+        <strong>Error!</strong> <p>{message}</p>
+      </div>
     </div>
   );
 }
