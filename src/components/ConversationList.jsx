@@ -58,7 +58,10 @@ export default function ConversationList() {
 
               return (
                 <tr key={conversation.id}>
-                  <td>
+                  <td className="hstack gap-4">
+                    <figure data-variant="avatar">
+                      <i className="fa-solid fa-user"></i>
+                    </figure>
                     <Link to={`/conversations/${conversation.id}`}>
                       {recipient.displayName}
                     </Link>
