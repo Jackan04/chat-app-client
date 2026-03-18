@@ -6,6 +6,7 @@ import { getRecipient } from "../utils/helpers";
 import ErrorMessage from "./ErrorMessage";
 import LoadingMessage from "./LoadingMessage";
 import EmptyState from "./EmptyState";
+import PageHeader from "./PageHeader";
 import { useNavigate } from "react-router-dom";
 
 const conversationService = new ConversationService();
@@ -69,8 +70,7 @@ export default function Conversation() {
 
   return (
     <section className="container">
-      <button onClick={() => navigate(-1)}>Go back</button>
-      <h2>Conversation with {recipient?.displayName}</h2>
+      <PageHeader title={recipient?.displayName} />
       <div className="vstack">
         <ul className="unstyled vstack">
           {messages.length === 0 ? (

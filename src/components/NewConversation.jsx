@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import ErrorMessage from "./ErrorMessage";
 import LoadingMessage from "./LoadingMessage";
 import EmptyState from "./EmptyState";
+import PageHeader from "./PageHeader";
 
 const userService = new UserService();
 const conversationService = new ConversationService();
@@ -59,7 +60,7 @@ export default function NewConversation() {
 
   return (
     <section className="container">
-      <h2>New Conversation</h2>
+      <PageHeader title="New Conversation" />
       <header>
         <form onSubmit={handleSubmit}>
           <label data-field htmlFor="user">

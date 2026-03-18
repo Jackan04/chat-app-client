@@ -3,6 +3,7 @@ import { useAuth } from "../context/useAuth";
 import UserService from "../api/userService";
 import ErrorMessage from "./ErrorMessage";
 import LoadingMessage from "./LoadingMessage";
+import PageHeader from "./PageHeader";
 
 const userService = new UserService();
 
@@ -51,7 +52,7 @@ export default function Profile() {
 
   return (
     <section className="container">
-      <h2>Profile</h2>
+      <PageHeader title="Profile" />
       <form onSubmit={handleSubmit}>
         <label data-field htmlFor="username">
           Username
