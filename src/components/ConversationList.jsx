@@ -47,15 +47,22 @@ export default function ConversationList() {
   return (
     <section className="container">
       <h2>Conversations</h2>
-      <ul className="unstyled vstack">
-        {conversations.map((conversation) => (
-          <li key={conversation.id}>
-            <Link to={`/conversations/${conversation.id}`}>
-              {getRecipient(conversation.participants, currentUser)}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <div className="table">
+        <table>
+          <tbody>
+            {conversations.map((conversation) => (
+              <tr key={conversation.id}>
+                <td>
+                  <Link to={`/conversations/${conversation.id}`}>
+                    {getRecipient(conversation.participants, currentUser)}
+                  </Link>
+                </td>
+                <td>{new Date(conversation.createdAt).toLocaleDateString()}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </section>
   );
 }
