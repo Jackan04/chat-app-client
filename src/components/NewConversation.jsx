@@ -58,7 +58,7 @@ export default function NewConversation() {
   if (error) return <ErrorMessage message={error} />;
 
   return (
-    <section>
+    <section className="container">
       <header>
         <form onSubmit={handleSubmit}>
           <input
@@ -71,7 +71,7 @@ export default function NewConversation() {
           <button type="submit">Search</button>
         </form>
       </header>
-      <ul>
+      <ul className="unstyled vstack">
         {hasSearched && users.length === 0 ? (
           <EmptyState
             title="No users found"
@@ -105,27 +105,23 @@ function UserDialog({
 }) {
   return (
     <dialog open={isOpen}>
-      <div>
-        <header>
+      <div className="vstack">
+        <header className="vstack">
           <h2>{user.displayName}</h2>
           <p>Username: {user.username}</p>
-          <label>
-            {user.online ? "Online" : "Offline"}
-          </label>
+          <label>{user.online ? "Online" : "Offline"}</label>
         </header>
         <main>
           <p>Bio: {user.bio}</p>
         </main>
-        <footer>
+        <footer className="hstack justify-between">
           <button
             disabled={user.id === currentUser.id}
             onClick={() => handleNewConversation(user)}
           >
             New Conversation
           </button>
-          <button onClick={handleClose}>
-            Close
-          </button>
+          <button onClick={handleClose}>Close</button>
         </footer>
       </div>
     </dialog>

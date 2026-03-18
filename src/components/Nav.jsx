@@ -4,9 +4,9 @@ import { useAuth } from "../context/useAuth";
 export default function Nav() {
   const { isAuthenticated } = useAuth();
   return (
-    <nav>
+    <nav className="hstack justify-between">
       <Link to="/">Chat App</Link>
-      <ul>
+      <ul className="unstyled hstack">
         {isAuthenticated && (
           <>
             <li>

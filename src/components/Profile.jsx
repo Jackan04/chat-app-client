@@ -50,7 +50,7 @@ export default function Profile() {
   if (error) return <ErrorMessage message={error} />;
 
   return (
-    <section>
+    <section className="container">
       <h2>Profile</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="username">
@@ -90,23 +90,18 @@ export default function Profile() {
         </label>
 
         {!isEditing && (
-          <div>
+          <div className="vstack">
             <button type="button" onClick={handleEditStart}>
               Edit
             </button>
-            <button onClick={logout}>
-              Logout
-            </button>
+            <button onClick={logout}>Logout</button>
           </div>
         )}
 
         {isEditing && (
-          <div>
+          <div className="hstack">
             <button type="submit">Save</button>
-            <button
-              type="button"
-              onClick={() => setIsEditing(false)}
-            >
+            <button type="button" onClick={() => setIsEditing(false)}>
               Cancel
             </button>
           </div>

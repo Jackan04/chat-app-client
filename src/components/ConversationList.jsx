@@ -33,7 +33,7 @@ export default function ConversationList() {
   }, [token]);
 
   if (loading) return <LoadingMessage />;
-  if (error) return <ErrorMessage message={error} />;  
+  if (error) return <ErrorMessage message={error} />;
 
   if (conversations.length === 0) {
     return (
@@ -44,12 +44,10 @@ export default function ConversationList() {
     );
   }
 
-  
-
   return (
-    <section>
+    <section className="container">
       <h2>Conversations</h2>
-      <ul>
+      <ul className="unstyled vstack">
         {conversations.map((conversation) => (
           <li key={conversation.id}>
             <Link to={`/conversations/${conversation.id}`}>

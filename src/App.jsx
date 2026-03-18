@@ -11,8 +11,8 @@ import NotFound from "./components/NotFound";
 
 function AppLayout() {
   return (
-    <div>
-      <header>
+    <div className="vstack">
+      <header className="container">
         <Nav />
       </header>
       <main>

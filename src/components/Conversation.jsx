@@ -68,13 +68,11 @@ export default function Conversation() {
   if (error) return <ErrorMessage message={error} />;
 
   return (
-    <section>
-      <button onClick={() => navigate(-1)}>
-        Go back
-      </button>
+    <section className="container">
+      <button onClick={() => navigate(-1)}>Go back</button>
       <h2>Conversation with {recipient}</h2>
-      <div>
-        <ul>
+      <div className="vstack">
+        <ul className="unstyled vstack">
           {messages.length === 0 ? (
             <EmptyState
               title="No messages yet"
@@ -82,10 +80,15 @@ export default function Conversation() {
             />
           ) : (
             messages.map((message) => (
-              <div key={message.id}>
-                <p>
-                  {message.content}
-                </p>
+              <div
+                className={
+                  message.senderId === currentUser.id
+                    ? "hstack justify-end"
+                    : "hstack"
+                }
+                key={message.id}
+              >
+                <p>{message.content}</p>
 
                 <br />
               </div>
@@ -93,7 +96,7 @@ export default function Conversation() {
           )}
         </ul>
         <form onSubmit={handleSubmit}>
-          <div>
+          <div className="hstack">
             <input
               type="text"
               placeholder="Enter a message"
