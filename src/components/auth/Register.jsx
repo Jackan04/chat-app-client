@@ -39,7 +39,7 @@ export default function Register() {
   if (loading) return <LoadingMessage />;
 
   return (
-    <section className="container">
+    <section>
       <h2>Register</h2>
       <form onSubmit={handleSubmit}>
         <ul>

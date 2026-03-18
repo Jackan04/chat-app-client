@@ -47,7 +47,7 @@ export default function ConversationList() {
   
 
   return (
-    <section className="container">
+    <section>
       <h2>Conversations</h2>
       <ul>
         {conversations.map((conversation) => (

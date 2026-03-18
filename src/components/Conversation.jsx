@@ -68,13 +68,13 @@ export default function Conversation() {
   if (error) return <ErrorMessage message={error} />;
 
   return (
-    <section className="container">
-      <button className="btn-ghost w-fit" onClick={() => navigate(-1)}>
+    <section>
+      <button onClick={() => navigate(-1)}>
         Go back
       </button>
       <h2>Conversation with {recipient}</h2>
       <div>
-        <ul className="chat-messages flex-col gap-6">
+        <ul>
           {messages.length === 0 ? (
             <EmptyState
               title="No messages yet"
@@ -82,25 +82,8 @@ export default function Conversation() {
             />
           ) : (
             messages.map((message) => (
-              <div
-                className={`
-                  flex
-                  gap-2
-                  ${message.senderId === currentUser.id ? "justify-end" : ""}
-                `}
-                key={message.id}
-              >
-                <p
-                  className={`
-                    p-3
-                    rounded-full
-                    ${
-                      message.senderId === currentUser.id
-                        ? "bg-success"
-                        : "bg-surface"
-                    }
-                      `}
-                >
+              <div key={message.id}>
+                <p>
                   {message.content}
                 </p>
 
@@ -110,7 +93,7 @@ export default function Conversation() {
           )}
         </ul>
         <form onSubmit={handleSubmit}>
-          <div className="flex gap-4 mt-4">
+          <div>
             <input
               type="text"
               placeholder="Enter a message"

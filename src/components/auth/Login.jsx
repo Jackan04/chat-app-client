@@ -32,7 +32,7 @@ export default function Login() {
   if (loading) return <LoadingMessage />;
 
   return (
-    <section className="container">
+    <section>
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <ul>

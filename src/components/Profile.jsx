@@ -50,7 +50,7 @@ export default function Profile() {
   if (error) return <ErrorMessage message={error} />;
 
   return (
-    <section className="container">
+    <section>
       <h2>Profile</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="username">
@@ -90,21 +90,20 @@ export default function Profile() {
         </label>
 
         {!isEditing && (
-          <div className="flex-col gap-4">
+          <div>
             <button type="button" onClick={handleEditStart}>
               Edit
             </button>
-            <button className="btn-danger" onClick={logout}>
+            <button onClick={logout}>
               Logout
             </button>
           </div>
         )}
 
         {isEditing && (
-          <div className="flex gap-4">
+          <div>
             <button type="submit">Save</button>
             <button
-              className="btn-ghost"
               type="button"
               onClick={() => setIsEditing(false)}
             >

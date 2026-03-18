@@ -58,7 +58,7 @@ export default function NewConversation() {
   if (error) return <ErrorMessage message={error} />;
 
   return (
-    <section className="container">
+    <section>
       <header>
         <form onSubmit={handleSubmit}>
           <input
@@ -105,27 +105,25 @@ function UserDialog({
 }) {
   return (
     <dialog open={isOpen}>
-      <div className="flex-col gap-6">
-        <header className="flex-col gap-2">
+      <div>
+        <header>
           <h2>{user.displayName}</h2>
-          <p className="text-secondary">Username: {user.username}</p>
-          <label
-            className={`badge ${user.online ? "badge-success" : "badge-danger"}`}
-          >
+          <p>Username: {user.username}</p>
+          <label>
             {user.online ? "Online" : "Offline"}
           </label>
         </header>
         <main>
           <p>Bio: {user.bio}</p>
         </main>
-        <footer className="flex justify-between">
+        <footer>
           <button
             disabled={user.id === currentUser.id}
             onClick={() => handleNewConversation(user)}
           >
             New Conversation
           </button>
-          <button className="btn-ghost" onClick={handleClose}>
+          <button onClick={handleClose}>
             Close
           </button>
         </footer>

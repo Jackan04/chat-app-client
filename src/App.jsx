@@ -11,11 +11,11 @@ import NotFound from "./components/NotFound";
 
 function AppLayout() {
   return (
-    <div className="app">
-      <header className="header">
+    <div>
+      <header>
         <Nav />
       </header>
-      <main className="main">
+      <main>
         <Outlet />
       </main>
     </div>
