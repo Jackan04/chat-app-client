@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 const conversationService = new ConversationService();
 
 export default function Conversation() {
-  const [recipient, setRecipient] = useState("");
+  const [recipient, setRecipient] = useState(null);
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
@@ -70,7 +70,7 @@ export default function Conversation() {
   return (
     <section className="container">
       <button onClick={() => navigate(-1)}>Go back</button>
-      <h2>Conversation with {recipient}</h2>
+      <h2>Conversation with {recipient?.displayName}</h2>
       <div className="vstack">
         <ul className="unstyled vstack">
           {messages.length === 0 ? (
