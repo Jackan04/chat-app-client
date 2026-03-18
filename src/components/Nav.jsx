@@ -4,19 +4,25 @@ import { useAuth } from "../context/useAuth";
 export default function Nav() {
   const { isAuthenticated } = useAuth();
   return (
-    <nav className="hstack justify-between">
+    <nav data-topnav className="hstack justify-between">
       <Link to="/">Chat App</Link>
-      <ul className="unstyled hstack">
+      <menu className="buttons">
         {isAuthenticated && (
           <>
             <li>
-              <NavLink to="/">Conversations</NavLink>
+              <NavLink className="button outline" to="/">
+                Conversations
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/conversations/new">New Conversation</NavLink>
+              <NavLink className="button outline" to="/conversations/new">
+                New Conversation
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/profile">Profile</NavLink>
+              <NavLink className="button outline" to="/profile">
+                Profile
+              </NavLink>
             </li>
           </>
         )}
@@ -24,14 +30,18 @@ export default function Nav() {
         {!isAuthenticated && (
           <>
             <li>
-              <NavLink to="/login">Login</NavLink>
+              <NavLink className="button outline" to="/login">
+                Login
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/register">Register</NavLink>
+              <NavLink className="button outline" to="/register">
+                Register
+              </NavLink>
             </li>
           </>
         )}
-      </ul>
+      </menu>
     </nav>
   );
 }
