@@ -94,14 +94,20 @@ export default function Profile() {
             <button type="button" onClick={handleEditStart}>
               Edit
             </button>
-            <button onClick={logout}>Logout</button>
+            <button className="outline" data-variant="danger" onClick={logout}>
+              Logout
+            </button>
           </div>
         )}
 
         {isEditing && (
           <div className="hstack">
             <button type="submit">Save</button>
-            <button type="button" onClick={() => setIsEditing(false)}>
+            <button
+              className="outline"
+              type="button"
+              onClick={() => setIsEditing(false)}
+            >
               Cancel
             </button>
           </div>
