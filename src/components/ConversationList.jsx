@@ -50,16 +50,32 @@ export default function ConversationList() {
       <div className="table">
         <table>
           <tbody>
-            {conversations.map((conversation) => (
-              <tr key={conversation.id}>
-                <td>
-                  <Link to={`/conversations/${conversation.id}`}>
-                    {getRecipient(conversation.participants, currentUser)}
-                  </Link>
-                </td>
-                <td>{new Date(conversation.createdAt).toLocaleDateString()}</td>
-              </tr>
-            ))}
+            {conversations.map((conversation) => {
+              const recipient = getRecipient(
+                conversation.participants,
+                currentUser,
+              );
+
+              return (
+                <tr key={conversation.id}>
+                  <td>
+                    <Link to={`/conversations/${conversation.id}`}>
+                      {recipient.displayName}
+                    </Link>
+                  </td>
+                  <td>
+                    <span
+                      className={`badge ${recipient.online ? "success" : "danger"}`}
+                    >
+                      {recipient.online ? "Online" : "Offline"}
+                    </span>
+                  </td>
+                  <td>
+                    {new Date(conversation.createdAt).toLocaleDateString()}
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
