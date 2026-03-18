@@ -83,7 +83,7 @@ export default function NewConversation() {
       ) : (
         <>
           <div className="table mt-6">
-            <p>Result: {users.length}</p>
+            <p className="text-light">Result: {users.length}</p>
             <table>
               <tbody>
                 {users.map((user) => (
@@ -140,11 +140,15 @@ function UserDialog({
               {user.online ? "Online" : "Offline"}
             </span>
           </div>
-          <p>Username: {user.username}</p>
+          <p className="text-light">Username: {user.username}</p>
         </header>
         <main>
-          <h4>About</h4>
-          <p>{user.bio}</p>
+          {user.bio && (
+            <>
+              <h4>About</h4>
+              <p>{user.bio}</p>
+            </>
+          )}
         </main>
         <footer className="hstack justify-between">
           <button
