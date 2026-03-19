@@ -71,7 +71,9 @@ export default function Register() {
             value={displayName}
             onChange={(event) => setDisplayName(event.target.value)}
           />
-          <small>This is the name other users will see across the app</small>
+          <small data-hint>
+            This is the name other users will see across the app
+          </small>
         </label>
         <label data-field htmlFor="password">
           Password
@@ -81,7 +83,7 @@ export default function Register() {
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
-          <small>Must be at least 6 characters</small>
+          <small data-hint>Must be at least 6 characters</small>
         </label>
         <label data-field htmlFor="passwordConfirmation">
           Confirm Password
