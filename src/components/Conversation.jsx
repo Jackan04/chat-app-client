@@ -72,7 +72,7 @@ export default function Conversation() {
   }
 
   if (loading) return <LoadingMessage />;
-  if (error) return <ErrorMessage message={error} />;
+  if (error) return <ErrorMessage message={error.message} />;
 
   return (
     <section className="container">
