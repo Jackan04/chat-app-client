@@ -1,7 +1,3 @@
 export default function LoadingMessage() {
-  return (
-    <div>
-      <p>Loading...</p>
-    </div>
-  );
+  return <div aria-busy="true" data-spinner="large"></div>;
 }
