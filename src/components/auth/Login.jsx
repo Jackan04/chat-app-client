@@ -18,13 +18,14 @@ export default function Login() {
 
   async function handleSubmit(event) {
     event.preventDefault();
+    setError("");
     setValidationErrors([]);
     setLoading(true);
     try {
-      const token = await authService.login(username, password);
-      await login(token);
+      const authToken = await authService.login(username, password);
+      await login(authToken);
     } catch (error) {
-      setError(error);
+      setError(error.message);
       if (error.validationErrors && error.validationErrors.length > 0) {
         setError("");
         setValidationErrors(error.validationErrors);
@@ -36,9 +37,7 @@ export default function Login() {
 
   if (loading) return <LoadingMessage />;
   if (error) {
-    return (
-      <ErrorMessage message={error.message} onRetry={() => setError("")} />
-    );
+    return <ErrorMessage message={error} onRetry={() => setError("")} />;
   }
 
   return (

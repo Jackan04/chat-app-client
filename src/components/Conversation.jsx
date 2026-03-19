@@ -26,12 +26,12 @@ export default function Conversation() {
     async function load() {
       setLoading(true);
       try {
-        const conversation = await conversationService.getConversationById(
+        const conversationData = await conversationService.getConversationById(
           token,
           id,
         );
-        setMessages(conversation.messages);
-        setRecipient(getRecipient(conversation.participants, currentUser));
+        setMessages(conversationData.messages);
+        setRecipient(getRecipient(conversationData.participants, currentUser));
       } catch (error) {
         setError(error.message);
       } finally {
@@ -54,13 +54,13 @@ export default function Conversation() {
     if (!message) return;
     setLoading(true);
     try {
-      const newMessage = await conversationService.sendMessage(
+      const sentMessage = await conversationService.sendMessage(
         token,
         id,
         message,
       );
 
-      setMessages((prevMessages) => [...prevMessages, newMessage]);
+      setMessages((prevMessages) => [...prevMessages, sentMessage]);
       setMessage("");
     } catch (error) {
       setError(error.message);
@@ -71,9 +71,7 @@ export default function Conversation() {
 
   if (loading) return <LoadingMessage />;
   if (error)
-    return (
-      <ErrorMessage message={error.message} onRetry={() => setError("")} />
-    );
+    return <ErrorMessage message={error} onRetry={() => setError("")} />;
 
   return (
     <section className="container">

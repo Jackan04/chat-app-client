@@ -49,8 +49,8 @@ export default function Profile() {
   function handleEditStart() {
     if (!currentUser) return;
 
-    setDisplayName(currentUser.displayName ?? "");
-    setBio(currentUser.bio ?? "");
+    setDisplayName(currentUser.displayName);
+    setBio(currentUser.bio);
     setOnline(Boolean(currentUser.online));
     setIsEditing(true);
   }
@@ -58,9 +58,7 @@ export default function Profile() {
   if (loading) return <LoadingMessage />;
   if (!currentUser) return <LoadingMessage />;
   if (error)
-    return (
-      <ErrorMessage message={error.message} onRetry={() => setError("")} />
-    );
+    return <ErrorMessage message={error} onRetry={() => setError("")} />;
 
   return (
     <section className="container">

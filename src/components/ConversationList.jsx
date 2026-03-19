@@ -21,9 +21,10 @@ export default function ConversationList() {
     async function load() {
       setLoading(true);
       try {
-        const conversations = await conversationService.getConversations(token);
+        const conversationList =
+          await conversationService.getConversations(token);
 
-        setConversations(conversations);
+        setConversations(conversationList);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -36,9 +37,7 @@ export default function ConversationList() {
 
   if (loading) return <LoadingMessage />;
   if (error)
-    return (
-      <ErrorMessage message={error.message} onRetry={() => setError("")} />
-    );
+    return <ErrorMessage message={error} onRetry={() => setError("")} />;
 
   return (
     <section className="container">

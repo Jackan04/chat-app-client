@@ -27,8 +27,11 @@ export default function NewConversation() {
     setHasSearched(true);
     setLoading(true);
     try {
-      const result = await userService.getUsersByUsername(token, searchQuery);
-      setUsers(result);
+      const foundUsers = await userService.getUsersByUsername(
+        token,
+        searchQuery,
+      );
+      setUsers(foundUsers);
     } catch (error) {
       setError(error.message);
     } finally {
@@ -42,11 +45,11 @@ export default function NewConversation() {
     setLoading(true);
     try {
       const participants = [currentUser, recipient];
-      const result = await conversationService.createConversation(
+      const createdConversation = await conversationService.createConversation(
         token,
         participants,
       );
-      navigate(`/conversations/${result.id}`);
+      navigate(`/conversations/${createdConversation.id}`);
     } catch (error) {
       setError(error.message);
     } finally {
@@ -56,9 +59,7 @@ export default function NewConversation() {
 
   if (loading) return <LoadingMessage />;
   if (error)
-    return (
-      <ErrorMessage message={error.message} onRetry={() => setError("")} />
-    );
+    return <ErrorMessage message={error} onRetry={() => setError("")} />;
 
   return (
     <section className="container">

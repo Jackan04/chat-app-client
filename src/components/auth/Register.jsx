@@ -20,18 +20,19 @@ export default function Register() {
 
   async function handleSubmit(event) {
     event.preventDefault();
+    setError("");
     setValidationErrors([]);
     setLoading(true);
     try {
-      const token = await authService.register(
+      const authToken = await authService.register(
         username,
         displayName,
         password,
         passwordConfirmation,
       );
-      await login(token);
+      await login(authToken);
     } catch (error) {
-      setError(error);
+      setError(error.message);
       if (error.validationErrors && error.validationErrors.length > 0) {
         setError("");
         setValidationErrors(error.validationErrors);
@@ -44,7 +45,7 @@ export default function Register() {
   if (loading) return <LoadingMessage />;
   if (error)
     return (
-      <ErrorMessage message={error.message} onRetry={() => setError("")} />
+      <ErrorMessage message={error} onRetry={() => setError("")} />
     );
 
   return (
