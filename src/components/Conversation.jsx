@@ -30,7 +30,6 @@ export default function Conversation() {
           token,
           id,
         );
-        console.log(conversation);
         setMessages(conversation.messages);
         setRecipient(getRecipient(conversation.participants, currentUser));
       } catch (error) {
@@ -60,7 +59,6 @@ export default function Conversation() {
         id,
         message,
       );
-      console.log(newMessage);
 
       setMessages((prevMessages) => [...prevMessages, newMessage]);
       setMessage("");

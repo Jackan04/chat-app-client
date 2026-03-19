@@ -28,7 +28,6 @@ export default function NewConversation() {
     setLoading(true);
     try {
       const result = await userService.getUsersByUsername(token, searchQuery);
-      console.log(result);
       setUsers(result);
     } catch (error) {
       setError(error.message);
