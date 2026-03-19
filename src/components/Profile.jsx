@@ -57,7 +57,10 @@ export default function Profile() {
 
   if (loading) return <LoadingMessage />;
   if (!currentUser) return <LoadingMessage />;
-  if (error) return <ErrorMessage message={error.message} />;
+  if (error)
+    return (
+      <ErrorMessage message={error.message} onRetry={() => setError("")} />
+    );
 
   return (
     <section className="container">

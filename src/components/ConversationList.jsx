@@ -35,7 +35,10 @@ export default function ConversationList() {
   }, [token]);
 
   if (loading) return <LoadingMessage />;
-  if (error) return <ErrorMessage message={error.message} />;
+  if (error)
+    return (
+      <ErrorMessage message={error.message} onRetry={() => setError("")} />
+    );
 
   return (
     <section className="container">
