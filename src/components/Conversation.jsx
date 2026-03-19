@@ -110,7 +110,7 @@ export default function Conversation() {
           </ul>
         </div>
         <form onSubmit={handleSubmit}>
-          <div className="hstack">
+          <label data-field htmlFor="message">
             <input
               type="text"
               placeholder="Enter a message"
@@ -118,8 +118,8 @@ export default function Conversation() {
               value={message}
               onChange={(event) => setMessage(event.target.value)}
             />
-            <button type="submit">Send</button>
-          </div>
+          </label>
+          <button type="submit">Send</button>
         </form>
       </div>
     </section>
