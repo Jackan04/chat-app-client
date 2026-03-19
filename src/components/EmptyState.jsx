@@ -1,6 +1,6 @@
 export default function EmptyState({ title, message }) {
   return (
-    <div role="alert">
+    <div className="mt-4" role="alert">
       <strong>{title}</strong> {message}
     </div>
   );
