@@ -44,8 +44,9 @@
 }
 
 .message {
-  border-radius: 999px;
-  padding: 8px 20px;
+  max-width: 350px;
+  border-radius: 8px;
+  padding: 14px;
 }
 
 .message-received {
