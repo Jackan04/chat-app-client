@@ -1,18 +1,15 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
-import { AuthProvider } from "./context/AuthContext.jsx";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import routes from "./routes.jsx";
 import "./index.css";
 import "@knadh/oat/oat.min.css";
 import "@knadh/oat/oat.min.js";
-import App from "./App.jsx";
+
+const router = createBrowserRouter(routes);
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <BrowserRouter>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
-    </BrowserRouter>
+    <RouterProvider router={router} />
   </StrictMode>,
 );
